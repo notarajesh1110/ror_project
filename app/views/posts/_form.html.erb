@@ -1,5 +1,0 @@
-<%= form_with(model: [post, Comment.new(parent_comment_id: params[:parent_comment_id])]) do |form| %>
-  <%= form.text_area :body %>
-  <%= form.hidden_field :parent_comment_id %>
-  <%= form.submit %>
-<% end %>
