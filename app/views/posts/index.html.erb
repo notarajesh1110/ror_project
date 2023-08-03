@@ -1,0 +1,21 @@
+<h1>Posts</h1>
+<strong> current user:<%= session[:username] %></strong>
+<% if logged_in? %>
+ <strong>Current User:
+  <%= session[:username] %>
+  <%= link_to "Logout", logout_path %>
+<%else%>
+  <%= link_to "Login" ,login_path() %>
+  <br/>
+  <%= link_to "Create Account" ,signup_path() %>
+<%end%>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= link_to post.title, post %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Post", new_post_path %>

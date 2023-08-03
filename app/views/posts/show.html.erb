@@ -1,0 +1,41 @@
+<p style="color: green"><%= notice %></p>
+<%= render @post %>
+
+<div>
+  <%= link_to "Edit this post", edit_post_path(@post) %> |
+  <%= link_to "Back to posts", posts_path %>
+
+  <%= button_to "Destroy this post", @post, method: :delete %>
+</div>
+
+<h2>Comments</h2>
+
+
+<% @post.comments.each do |comment| %>
+  <% unless comment.parent_comment_id %>
+    <p>
+      <strong>Comment:</strong>
+      <%= comment.body %>
+      <%= link_to 'reply' , new_post_comment_path(@post, parent_comment_id: comment.id), remote: true %> 
+    </p>
+
+    <% if comment.replies.any? %>
+      <% comment.replies.each do |reply| %>
+        <%= reply.body %>
+      <%end%>
+    <%end%>
+  <% end %>
+<% end %>
+
+
+
+<h2>Add a comment:</h2>
+<%= form_with model: [ @post, @post.comments.build] do |form| %>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
